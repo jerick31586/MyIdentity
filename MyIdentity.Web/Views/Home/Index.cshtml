@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "Home";    
+}
+
+<ul class="list-group">
+    @foreach (var item in CurrentUser.Claims)
+    {
+        <li class="list-group-item">
+            <b>@item.Type</b><br/>
+            @item.Value
+        </li>
+    }
+</ul>

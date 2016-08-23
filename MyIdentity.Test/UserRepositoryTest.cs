@@ -41,8 +41,33 @@ namespace MyIdentity.Test
             var result = _repository.FindByUserName(notInTheListUserName);
 
             //Assert
+            Assert.IsNull(result);            
+        }        
+                
+        [TestMethod]
+        public void FindByEmail_WithUserInTheList_ShouldReturnUserObjectWithSameEmail()
+        {
+            //Arrange
+            string emailInTheList = "t@t.com";
+
+            //Act
+            var result = _repository.FindByEmail(emailInTheList);
+
+            //Assert
+            Assert.AreEqual(emailInTheList, result.Email);
+        }
+
+        [TestMethod]
+        public void FindByEmail_WithUserNotInTheList_ShouldReturnNullUserObject()
+        {
+            //Arrange
+            string emailNotInTheList = "test@test.com";
+
+            //Act
+            var result = _repository.FindByEmail(emailNotInTheList);
+
+            //Assert
             Assert.IsNull(result);
-            
-        }                
+        }
     }
 }

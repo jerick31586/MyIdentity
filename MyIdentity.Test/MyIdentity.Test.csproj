@@ -78,7 +78,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="RepositoryTest.cs" />
+    <Compile Include="RoleRepositoryTest.cs" />
     <Compile Include="TestHelper.cs" />
+    <Compile Include="UserLoginRepositoryTest.cs" />
     <Compile Include="UserRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

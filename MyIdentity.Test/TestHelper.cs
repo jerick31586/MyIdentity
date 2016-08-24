@@ -6,11 +6,18 @@ using MyIdentity.Domain.Entities;
 using MyIdentity.Domain.Repositories;
 using System;
 using System.Collections.Generic;
+using Microsoft.Practices.Unity;
+using MyIdentity.Domain;
 
 namespace MyIdentity.Test
 {    
     public static class TestHelper
     {    
+        public static void RegisterComponents()
+        {
+            var container = new UnityContainer();
+            container.RegisterType<IUnitOfWork, UnitOfWork>();                    
+        }
         public static void AssertionThrow<TException>(Action blockToExecute) where TException : System.Exception
         {
             try

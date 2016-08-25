@@ -64,8 +64,7 @@ namespace MyIdentity.Test
             container.RegisterType<IServiceLocator, CustomUnityServiceLocator>();
             //Register services
             container.RegisterType<IFooService, FooService>();
-        }
-        
+        }        
     }
     
     public class UnityConfig

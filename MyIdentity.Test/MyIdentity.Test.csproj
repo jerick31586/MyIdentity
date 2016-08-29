@@ -95,16 +95,10 @@
   </Choose>
   <ItemGroup>
     <Compile Include="MySampleTest.cs" />
-    <Compile Include="RepositoryTest.cs" />
-    <Compile Include="RoleRepositoryTest.cs" />
-    <Compile Include="SampleTest.cs" />
+    <Compile Include="ServiceAndCommon.cs" />
     <Compile Include="TestBase.cs" />
     <Compile Include="TestHelper.cs" />
     <Compile Include="UnitOfWorkTest.cs" />
-    <Compile Include="UnitTest1.cs" />
-    <Compile Include="UnityBootStrapper.cs" />
-    <Compile Include="UserLoginRepositoryTest.cs" />
-    <Compile Include="UserRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

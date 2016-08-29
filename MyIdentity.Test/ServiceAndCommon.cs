@@ -1,9 +1,8 @@
-﻿using Microsoft.Practices.Unity;
+﻿using Effort;
+using Microsoft.Practices.Unity;
+using MyIdentity.Data.EntityFramewok;
+using MyIdentity.Domain;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyIdentity.Test
 {
@@ -33,7 +32,7 @@ namespace MyIdentity.Test
         //DI conatiner
         protected TContainer Container { get; private set; }
 
-        public DependencyInjectionServiceLocator(TContainer container)
+        protected DependencyInjectionServiceLocator(TContainer container)
         {
             Container = container;
         }
@@ -63,6 +62,10 @@ namespace MyIdentity.Test
             //Register Service locator
             container.RegisterType<IServiceLocator, CustomUnityServiceLocator>();
             //Register services
+            var connection = DbConnectionFactory.CreateTransient();
+            container.RegisterType<ApplicationDbContext>(new InjectionConstructor(connection));
+            container.RegisterType<IUnitOfWork, UnitOfWork>();
+            //container.RegisterType<IUserStore<IdentityUser, string>, UserStore>(new TransientLifetimeManager());
             container.RegisterType<IFooService, FooService>();
         }        
     }

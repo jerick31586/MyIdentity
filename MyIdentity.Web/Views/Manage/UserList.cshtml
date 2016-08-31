@@ -10,7 +10,7 @@
     @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-default btn-sm" })
 </p>
 
-<table class="table">
+<table class="table table-responsive table-condensed">
     <tr>
         <th>Action</th>
         <th>Username</th>
@@ -22,8 +22,10 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-info btn-xs" }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-success btn-xs" }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-xs" }) |
+            @Html.ActionLink("Claims", "ClaimList", new { userID = item.Id }, new { @class = "btn btn-default btn-xs" }) |
+            @Html.ActionLink("Change Password", "ChangePassword", new { id = item.Id }, new { @class = "btn btn-warning btn-xs" }) |
             @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-xs" })
         </td>
         <td>

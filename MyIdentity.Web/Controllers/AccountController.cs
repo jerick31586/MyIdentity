@@ -50,6 +50,7 @@ namespace MyIdentity.Web.Controllers
             u.LastName = user.LastName;
             u.Email = user.Email;
             u.PhoneNumber = user.PhoneNumber;
+            u.Address = user.Address;
             u.DateOfBirth = user.DateOfBirth;
         }
 
@@ -105,8 +106,7 @@ namespace MyIdentity.Web.Controllers
                     ctx.Authentication.SignIn(userIdentity);
                     return RedirectToAction("Index", "Home");
                 }
-                AddErrors(result);
-
+                AddErrors(result);                
             }
             return View(model);
         }

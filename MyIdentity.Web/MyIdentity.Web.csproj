@@ -224,11 +224,11 @@
     <Compile Include="Controllers\CustomController\TestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountsViewModels.cs" />
+    <Compile Include="Models\CustomAttributes\AuthActivity.cs" />
     <Compile Include="Models\Identity\IdentityRole.cs" />
     <Compile Include="Models\Identity\IdentityUser.cs" />
     <Compile Include="Models\Identity\ApplicationUserManager.cs" />
@@ -255,6 +255,7 @@
     <Content Include="Views\Manage\Edit.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Test\Test.cshtml" />
+    <Content Include="Views\Manage\ClaimList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

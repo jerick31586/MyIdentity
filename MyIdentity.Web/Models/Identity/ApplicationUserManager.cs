@@ -43,17 +43,21 @@ namespace MyIdentity.Web.Models.Identity
         }        
     }
 
+
+    //Custom validation like Age 
     public class AppUserValidator : UserValidator<IdentityUser>
     {
         public AppUserValidator(UserManager<IdentityUser, string> manager) : base(manager)
         {
         }
-        //public override Task<IdentityResult> ValidateAsync(IdentityUser item)
-        //{
-        //    var result = base.ValidateAsync(item);
+        public override Task<IdentityResult> ValidateAsync(IdentityUser item)
+        {
+            var result = base.ValidateAsync(item);
 
-        //    //var errors = 
-        //}
+            //var errors = 
+            return result;
+            
+        }
     }
 
     public class AppPasswordValidator : PasswordValidator

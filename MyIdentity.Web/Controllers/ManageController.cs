@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNet.Identity;
+using MyIdentity.Domain.Entities;
 using MyIdentity.Web.Models;
 using MyIdentity.Web.Models.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -14,6 +16,29 @@ namespace MyIdentity.Web.Controllers
     public class ManageController : Controller
     {
         private readonly ApplicationUserManager _userManager;
+
+        #region Private Methods
+        public static IdentityUser getIdentityUser(UserViewModel user)
+        {
+            if (user == null)
+                return null;
+
+            var u = new IdentityUser();
+            populateIdentityUser(u, user);
+            return u;
+        }
+        private static void populateIdentityUser(IdentityUser identityUser, UserViewModel user)
+        {
+            identityUser.Id = user.Id;
+            identityUser.UserName = user.UserName;
+            identityUser.FirstName = user.FirstName;
+            identityUser.LastName = user.LastName;
+            identityUser.Email = user.Email;
+            identityUser.PhoneNumber = user.PhoneNumber;
+            identityUser.DateOfBirth = user.DateOfBirth;
+        }
+        #endregion
+
         public ManageController(ApplicationUserManager userManager)
         {
             _userManager = userManager;
@@ -81,5 +106,49 @@ namespace MyIdentity.Web.Controllers
             return View(UserViewModel.getUser(user));
         }
         
+        public ActionResult Edit(UserViewModel model)
+        {
+            var user = _userManager.FindById(model.Id);
+
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+
+            populateIdentityUser(user, model);
+
+            var result = _userManager.Update(user);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("UserList");
+            }
+            AddErrors(result);
+            return View(user);
+        }
+        public async Task<ActionResult> ClaimList(string userID)
+        {
+            
+            var claims = await _userManager.GetClaimsAsync(userID);
+
+            List<UserClaim> userClaims = new List<UserClaim>();
+
+            foreach (var item in claims)
+            {
+                userClaims.Add(new UserClaim
+                {
+                    ClaimType = item.Type,
+                    ClaimValue = item.Value
+                });
+            }
+
+            return View(userClaims);
+        }
+
+        public async Task<ActionResult> AddClaim()
+        {
+            return View();
+            //var result = _userManager.AddClaim()
+        }
     }
 }

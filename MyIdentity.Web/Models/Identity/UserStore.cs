@@ -81,7 +81,7 @@ namespace MyIdentity.Web.Models.Identity
             identityUser.Address = user.Address;
             identityUser.DateOfBirth = user.DateOfBirth;
         }
-        #endregion
+        #endregion              
 
         #region IUserStore
         public Task CreateAsync(IdentityUser user)

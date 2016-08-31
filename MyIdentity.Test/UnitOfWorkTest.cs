@@ -19,7 +19,7 @@ namespace MyIdentity.Test
             _idList = new List<string>();
         }
 
-        [TestMethod]  
+        [TestMethod] 
         public void Add_WithUserObject_ShouldReturnOneWhenSaved()
         {
             //Arrange
@@ -40,6 +40,8 @@ namespace MyIdentity.Test
             string expectedUserName = "admin";
 
             //Act
+            _unitOfWork.Users.Add(MyUser);
+            _unitOfWork.SaveChanges();
             var result = _unitOfWork.Users.FindByUserName(expectedUserName);
 
             //Assert
@@ -182,13 +184,12 @@ namespace MyIdentity.Test
         public void Add_WithUserLoginObject_ShouldReturnOneWhenSaved()
         {
             //Arrange
-            var expectedValue = 2;
+            var expectedValue = 1;
 
             //Act
-            _unitOfWork.Users.Add(MyUser);
+            _unitOfWork.Users.Add(MyUser);            
             var user = _unitOfWork.Users.FindById(MyUser.UserID);
-            user.UserLogins.Add(MyUserLogin);            
-            //_unitOfWork.Users.Update(MyUser);
+            user.UserLogins.Add(MyUserLogin);                        
             var result = _unitOfWork.SaveChanges();
 
             //Assert
@@ -202,7 +203,10 @@ namespace MyIdentity.Test
                    providerKeyInTheList = MyUserLogin.ProviderKey;
 
             //Act    
-            _unitOfWork.Users.Add(MyUser);        
+            _unitOfWork.Users.Add(MyUser);                                                
+            var user = _unitOfWork.Users.FindById(MyUser.UserID);
+            user.UserLogins.Add(MyUserLogin);
+            _unitOfWork.SaveChanges();
             var result = _unitOfWork.UserLogins.GetByProviderAndKey(loginProviderInTheList, providerKeyInTheList);
             
             //Assert

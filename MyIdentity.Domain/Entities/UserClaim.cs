@@ -23,6 +23,6 @@ namespace MyIdentity.Domain.Entities
             get { return _user; }
             set { _user = value; }
         }
-        #endregion
+        #endregion        
     }
 }

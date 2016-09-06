@@ -80,6 +80,7 @@ namespace MyIdentity.Web.Models
             u.FirstName = user.FirstName;
             u.LastName = user.LastName;
             u.Email = user.Email;
+            u.Address = user.Address;
             u.PhoneNumber = user.PhoneNumber;
             u.DateOfBirth = user.DateOfBirth;
         }        

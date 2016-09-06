@@ -7,33 +7,21 @@
 <h2>ClaimList</h2>
 
 <p>
-    @Html.ActionLink("Create New", "AddClaim")
+    @Html.ActionLink("Add Claim", "AddClaim") | @Html.ActionLink("Remove Claim", "RemoveClaim")
 </p>
 <table class="table">
-    <tr>
+    <tr>        
         <th>
-            @Html.DisplayNameFor(model => model.ClaimID)
+           Type
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UserID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ClaimType)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ClaimValue)
+            Value
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ClaimID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserID)
-        </td>
+    <tr>        
         <td>
             @Html.DisplayFor(modelItem => item.ClaimType)
         </td>

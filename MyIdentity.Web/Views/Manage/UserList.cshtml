@@ -23,7 +23,7 @@
     <tr>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-success btn-xs" }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-xs" }) |
+            @Html.ActionLink("Roles", "RoleList", new { userID = item.Id }, new { @class = "btn btn-info btn-xs" }) |
             @Html.ActionLink("Claims", "ClaimList", new { userID = item.Id }, new { @class = "btn btn-default btn-xs" }) |
             @Html.ActionLink("Change Password", "ChangePassword", new { id = item.Id }, new { @class = "btn btn-warning btn-xs" }) |
             @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-xs" })

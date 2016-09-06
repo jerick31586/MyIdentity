@@ -18,6 +18,26 @@ namespace MyIdentity.Web.Controllers
         private readonly ApplicationUserManager _userManager;
 
         #region Private Methods
+        public static UserViewModel getUser(IdentityUser user)
+        {
+            if (user == null)
+                return null;
+
+            var u = new UserViewModel();
+            populateUser(u, user);
+            return u;
+        }
+        private static void populateUser(UserViewModel u, IdentityUser user)
+        {
+            u.Id = user.Id;
+            u.UserName = user.UserName;
+            u.FirstName = user.FirstName;
+            u.LastName = user.LastName;
+            u.Email = user.Email;
+            u.Address = user.Address;
+            u.PhoneNumber = user.PhoneNumber;
+            u.DateOfBirth = user.DateOfBirth;
+        }
         public static IdentityUser getIdentityUser(UserViewModel user)
         {
             if (user == null)
@@ -51,6 +71,7 @@ namespace MyIdentity.Web.Controllers
                 ModelState.AddModelError("", error);
             }
         }
+
         public ActionResult UserList()
         {
             var users = _userManager.Users;
@@ -103,32 +124,48 @@ namespace MyIdentity.Web.Controllers
                 return HttpNotFound();
             }
 
-            return View(UserViewModel.getUser(user));
+            return View(getUser(user));
         }
         
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(UserViewModel model)
         {
-            var user = _userManager.FindById(model.Id);
+            if (ModelState.IsValid)
+            {
+                var user = _userManager.FindById(model.Id);
 
-            if (user == null)
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+
+                populateIdentityUser(user, model);
+
+                var result = _userManager.Update(user);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("UserList");
+                }
+                AddErrors(result);
+                return View(getUser(user));
+            }            
+            return View(model);
+        }
+        
+        public ActionResult RoleList(string userID)
+        {
+            if (string.IsNullOrEmpty(userID))
             {
                 return HttpNotFound();
             }
-
-            populateIdentityUser(user, model);
-
-            var result = _userManager.Update(user);
-
-            if (result.Succeeded)
-            {
-                return RedirectToAction("UserList");
-            }
-            AddErrors(result);
-            return View(user);
+            var userRoles = _userManager.GetRoles(userID);
+            return View();
         }
+
         public async Task<ActionResult> ClaimList(string userID)
-        {
-            
+        {            
             var claims = await _userManager.GetClaimsAsync(userID);
 
             List<UserClaim> userClaims = new List<UserClaim>();
@@ -141,7 +178,6 @@ namespace MyIdentity.Web.Controllers
                     ClaimValue = item.Value
                 });
             }
-
             return View(userClaims);
         }
 

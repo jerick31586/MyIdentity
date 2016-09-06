@@ -199,13 +199,16 @@ namespace MyIdentity.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
         {
-            var result = await _userManager.ChangePasswordAsync(User.Identity.GetUserId(), model.Password, model.ConfirmPassword);
-
-            if (result.Succeeded)
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("Settings");
-            }
-            AddErrors(result);
+                var result = await _userManager.ChangePasswordAsync(User.Identity.GetUserId(), model.Password, model.ConfirmPassword);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Settings");
+                }
+                AddErrors(result);
+            }            
             return View(model);
         }
         public ActionResult Delete(string id)

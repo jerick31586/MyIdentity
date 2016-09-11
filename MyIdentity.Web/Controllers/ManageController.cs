@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using MyIdentity.Domain.Entities;
 using MyIdentity.Web.Models;
+using MyIdentity.Web.Models.CustomAttributes;
 using MyIdentity.Web.Models.Identity;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace MyIdentity.Web.Controllers
     public class ManageController : Controller
     {
         private readonly ApplicationUserManager _userManager;
+        private readonly ApplicationRoleManager _roleManager;
 
         #region Private Methods
         public static UserViewModel getUser(IdentityUser user)
@@ -59,11 +61,12 @@ namespace MyIdentity.Web.Controllers
         }
         #endregion
 
-        public ManageController(ApplicationUserManager userManager)
+        public ManageController(ApplicationUserManager userManager, ApplicationRoleManager roleManager)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
         }
-
+        
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
@@ -72,6 +75,7 @@ namespace MyIdentity.Web.Controllers
             }
         }
 
+        [AuthActivity(_roleManager, AccessLevel = "ReadUserList")]
         public ActionResult UserList()
         {
             var users = _userManager.Users;
@@ -184,7 +188,6 @@ namespace MyIdentity.Web.Controllers
         public async Task<ActionResult> AddClaim()
         {
             return View();
-            //var result = _userManager.AddClaim()
         }
     }
 }

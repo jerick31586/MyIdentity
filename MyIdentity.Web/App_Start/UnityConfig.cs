@@ -20,10 +20,11 @@ namespace MyIdentity.Web
 			// e.g. container.RegisterType<ITestService, TestService>();
 
 			container.RegisterType<ApplicationDbContext>(new InjectionConstructor("MyIdentityContext"));
-			container.RegisterType<IUnitOfWork, UnitOfWork>();            
+			container.RegisterType<IUnitOfWork, UnitOfWork>();
 			container.RegisterType<IUserStore<IdentityUser, string>, UserStore>(new TransientLifetimeManager());
-			container.RegisterType<RoleStore>();
+			container.RegisterType<IRoleStore<IdentityRole, string>, RoleStore>(new TransientLifetimeManager());
 			container.RegisterType<ApplicationUserManager>();
+            container.RegisterType<ApplicationRoleManager>();
 
 			DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 		}

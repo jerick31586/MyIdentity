@@ -11,23 +11,28 @@ using System.Web.Routing;
 
 namespace MyIdentity.Web.Models.CustomAttributes
 {    
+    public interface IActionFilter<TAttribute> where TAttribute : Attribute
+    {
+        void OnActionExecuting(TAttribute attribute, ActionExecutingContext context);
+    }
+
+
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
     public class AuthActivityAttribute : Attribute
     {
-        private string _activity;
-        private readonly ApplicationUserManager _mgr;        
-        public AuthActivityAttribute(string activity, ApplicationUserManager manager)
-        {
-            _activity = activity;
-            _mgr = manager;
-        }
+        private ApplicationRoleManager _roleManager;
 
-        public string Activity {
-            get { return _activity; }
-        }        
-        public static void AuthenticateUser(string activity)
+        public AuthActivityAttribute(ApplicationRoleManager roleManager)
         {
-            
-        }        
+            _roleManager = roleManager;
+        }
+        
+        public string AccessLevel { get; set; }
+        public ApplicationRoleManager RoleManager
+        {
+            get { return _roleManager; }
+            private set { _roleManager = value; }
+        }
+                        
     }
 }

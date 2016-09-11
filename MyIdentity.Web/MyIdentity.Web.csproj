@@ -229,6 +229,7 @@
     </Compile>
     <Compile Include="Models\AccountsViewModels.cs" />
     <Compile Include="Models\CustomAttributes\AuthActivity.cs" />
+    <Compile Include="Models\Identity\ApplicationRoleManager.cs" />
     <Compile Include="Models\Identity\IdentityRole.cs" />
     <Compile Include="Models\Identity\IdentityUser.cs" />
     <Compile Include="Models\Identity\ApplicationUserManager.cs" />

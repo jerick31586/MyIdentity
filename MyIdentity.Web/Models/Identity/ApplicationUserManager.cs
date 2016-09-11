@@ -43,7 +43,6 @@ namespace MyIdentity.Web.Models.Identity
         }        
     }
 
-
     //Custom validation like Age 
     public class AppUserValidator : UserValidator<IdentityUser>
     {

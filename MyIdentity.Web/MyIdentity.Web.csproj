@@ -222,6 +222,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CustomController\AppController.cs" />
     <Compile Include="Controllers\CustomController\TestController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -257,6 +258,7 @@
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Test\Test.cshtml" />
     <Content Include="Views\Manage\ClaimList.cshtml" />
+    <Content Include="Views\Shared\_UnAuthorized.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -266,6 +268,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Common\" />
+    <Folder Include="Views\Error\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyIdentity.Data.EntityFramewok\MyIdentity.Data.EntityFramewok.csproj">

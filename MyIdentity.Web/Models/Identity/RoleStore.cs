@@ -9,7 +9,7 @@ using MyIdentity.Domain.Entities;
 
 namespace MyIdentity.Web.Models.Identity
 {
-    public class RoleStore : IRoleStore<IdentityRole, string>, IQueryableRoleStore<IdentityRole, string>
+    public class RoleStore : IRoleStore<IdentityRole, string>, IQueryableRoleStore<IdentityRole, string>        
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -69,7 +69,7 @@ namespace MyIdentity.Web.Models.Identity
 
             var r = _unitOfWork.Roles.FindById(role.Id);
             if (r == null)
-                throw new ArgumentException("IdentitRole does correspond to a role entity", "role");
+                throw new ArgumentException("IdentityRole does correspond to a role entity", "role");
 
             _unitOfWork.Roles.Remove(r);
             return _unitOfWork.SaveChangesAsync();

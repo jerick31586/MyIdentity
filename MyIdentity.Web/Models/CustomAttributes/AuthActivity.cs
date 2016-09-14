@@ -10,29 +10,43 @@ using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace MyIdentity.Web.Models.CustomAttributes
-{    
-    public interface IActionFilter<TAttribute> where TAttribute : Attribute
-    {
-        void OnActionExecuting(TAttribute attribute, ActionExecutingContext context);
-    }
-
-
+{        
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
-    public class AuthActivityAttribute : Attribute
-    {
-        private ApplicationRoleManager _roleManager;
+    public class AuthActivity : ActionFilterAttribute, IExceptionFilter
+    {        
+        private ApplicationUserManager _userManager;        
 
-        public AuthActivityAttribute(ApplicationRoleManager roleManager)
+        public AuthActivity()
         {
-            _roleManager = roleManager;
+            _userManager = DependencyResolver.Current.GetService<ApplicationUserManager>();
         }
-        
+
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            var user = _userManager.FindByNameAsync(filterContext.HttpContext.User.Identity.Name);
+
+            if (user.Result != null)
+            {
+                if (!_userManager.IsInRoleAsync(user.Result.Id, AccessLevel).Result)
+                {
+                    filterContext.Result = new RedirectToRouteResult(
+                        new RouteValueDictionary(
+                            new { controller = "Error", action = "UnAuthorized" }    
+                        ));
+                }
+            }
+            
+        }
+
+        public override void OnResultExecuting(ResultExecutingContext filterContext)
+        {
+            
+        }
         public string AccessLevel { get; set; }
-        public ApplicationRoleManager RoleManager
+
+        public void OnException(ExceptionContext filterContext)
         {
-            get { return _roleManager; }
-            private set { _roleManager = value; }
+            throw new NotImplementedException();
         }
-                        
     }
 }

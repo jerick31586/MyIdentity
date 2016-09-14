@@ -17,7 +17,6 @@ namespace MyIdentity.Web.Controllers
     public class ManageController : Controller
     {
         private readonly ApplicationUserManager _userManager;
-        private readonly ApplicationRoleManager _roleManager;
 
         #region Private Methods
         public static UserViewModel getUser(IdentityUser user)
@@ -61,10 +60,9 @@ namespace MyIdentity.Web.Controllers
         }
         #endregion
 
-        public ManageController(ApplicationUserManager userManager, ApplicationRoleManager roleManager)
+        public ManageController(ApplicationUserManager userManager)
         {
-            _userManager = userManager;
-            _roleManager = roleManager;
+            _userManager = userManager;            
         }
         
         private void AddErrors(IdentityResult result)
@@ -75,7 +73,7 @@ namespace MyIdentity.Web.Controllers
             }
         }
 
-        [AuthActivity(_roleManager, AccessLevel = "ReadUserList")]
+        [AuthActivity(AccessLevel = "ReadUserList")]
         public ActionResult UserList()
         {
             var users = _userManager.Users;

@@ -15,6 +15,10 @@ namespace MyIdentity.Web.Controllers.CustomController
             : base(principal)
         {
         }
+        public string UserID
+        {
+            get { return FindFirst("UserID").Value; }
+        }
         public string UserName
         {
             get { return FindFirst("username").Value; }

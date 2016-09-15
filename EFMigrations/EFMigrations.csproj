@@ -73,6 +73,10 @@
     <Compile Include="Migrations\201608220743178_AddHasMaxLenghtAnnotionsToAllFields.Designer.cs">
       <DependentUpon>201608220743178_AddHasMaxLenghtAnnotionsToAllFields.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609151435211_AddedDepartmentAndDepartmentIDJobTitle.cs" />
+    <Compile Include="Migrations\201609151435211_AddedDepartmentAndDepartmentIDJobTitle.Designer.cs">
+      <DependentUpon>201609151435211_AddedDepartmentAndDepartmentIDJobTitle.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -94,6 +98,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608220743178_AddHasMaxLenghtAnnotionsToAllFields.resx">
       <DependentUpon>201608220743178_AddHasMaxLenghtAnnotionsToAllFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609151435211_AddedDepartmentAndDepartmentIDJobTitle.resx">
+      <DependentUpon>201609151435211_AddedDepartmentAndDepartmentIDJobTitle.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

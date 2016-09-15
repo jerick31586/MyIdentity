@@ -342,8 +342,7 @@ namespace MyIdentity.Web.Models.Identity
 
         #region IUserPasswordStore
         public Task SetPasswordHashAsync(IdentityUser user, string passwordHash)
-        {
-            
+        {            
             user.PasswordHash = passwordHash;            
             return Task.FromResult(0);
         }

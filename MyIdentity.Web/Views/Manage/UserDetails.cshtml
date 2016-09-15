@@ -1,0 +1,62 @@
+﻿@model MyIdentity.Web.Models.UserViewModel
+
+@{
+    ViewBag.Title = "UserDetails";
+}
+
+<h2>@(Model.FirstName + " " + Model.LastName)'s Profile</h2>
+<div class="pull-right">        
+    @Html.ActionLink("Edit", "Edit", new { userID = Model.Id }, new { @class = "btn btn-default btn-sm" }) <br /><br />
+</div>
+
+<table class="table table-condensed">
+    <thead>
+        <tr class="bg-primary">
+            <th colspan="2">Personal Information</th>
+        </tr>        
+    </thead>
+    <tbody>        
+        <tr>
+            <td>Name:</td>
+            <td>@(Model.FirstName + " " + Model.LastName)</td>                       
+        </tr>
+        <tr>
+            <td>Email Address:</td>
+            <td>@Model.Email</td>
+        </tr>
+        <tr>
+            <td>Address:</td>
+            <td>@Model.Address</td>
+        </tr>
+        <tr>
+            <td>Phone Number:</td>
+            <td>@Model.PhoneNumber</td>
+        </tr>
+        <tr>
+            <td>Date of Birth:</td>
+            <td>@Model.DateOfBirth</td>
+        </tr>
+    </tbody>
+</table>
+<table class="table table-condensed">
+    <thead>
+        <tr class="bg-primary">
+            <th colspan="2">Organization Company</th>
+        </tr>        
+    </thead>
+    <tbody>
+        <tr>
+            <td>Company:</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Department:</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Job Title:</td>
+            <td></td>
+        </tr>        
+    </tbody>
+</table>
+

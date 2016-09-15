@@ -12,6 +12,7 @@ namespace MyIdentity.Domain.Entities
         private ICollection<Role> _roles;
         private ICollection<UserClaim> _userClaims;
         private ICollection<UserLogin> _userLogins;
+        private Department _department;
         #endregion
 
         #region Scalar Properties
@@ -22,7 +23,9 @@ namespace MyIdentity.Domain.Entities
         public string Email { get; set; }
         public string Address { get; set; }
         public string PhoneNumber { get; set; }
-        public DateTime? DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }        
+        public int? DepartmentID { get; set; }
+        public string JobTitle { get; set; }
         public virtual string PasswordHash { get; set; }
         public virtual string SecurityStamp { get; set; }
 
@@ -44,6 +47,11 @@ namespace MyIdentity.Domain.Entities
         {
             get { return _userLogins ?? (_userLogins = new List<UserLogin>()); }
             set { _userLogins = value; }
+        }
+        public virtual Department Department
+        {
+            get { return _department; }
+            set { _department = value; }
         }
         #endregion
     }    

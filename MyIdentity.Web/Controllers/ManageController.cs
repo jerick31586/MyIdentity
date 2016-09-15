@@ -12,13 +12,20 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace MyIdentity.Web.Controllers
-{
-    [AllowAnonymous]
+{    
     public class ManageController : Controller
     {
         private readonly ApplicationUserManager _userManager;
+        private readonly ApplicationRoleManager _roleManager;
 
         #region Private Methods
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
+        }
         public static UserViewModel getUser(IdentityUser user)
         {
             if (user == null)
@@ -39,6 +46,7 @@ namespace MyIdentity.Web.Controllers
             u.PhoneNumber = user.PhoneNumber;
             u.DateOfBirth = user.DateOfBirth;
         }
+
         public static IdentityUser getIdentityUser(UserViewModel user)
         {
             if (user == null)
@@ -58,27 +66,59 @@ namespace MyIdentity.Web.Controllers
             identityUser.PhoneNumber = user.PhoneNumber;
             identityUser.DateOfBirth = user.DateOfBirth;
         }
-        #endregion
 
-        public ManageController(ApplicationUserManager userManager)
+        private static RoleViewModel getRole(IdentityRole role)
         {
-            _userManager = userManager;            
+            if (role == null)
+            {
+                return null;
+            }
+            var r = new RoleViewModel();
+            populateRole(r, role);
+            return r;
         }
         
-        private void AddErrors(IdentityResult result)
+        private static IdentityRole getIdentityRole(RoleViewModel role)
         {
-            foreach (var error in result.Errors)
+            if (role == null)
             {
-                ModelState.AddModelError("", error);
+                return null;
             }
+            var r = new IdentityRole();
+            populateIdentityRole(r, role);
+            return r;
+        }       
+       
+        private static void populateRole(RoleViewModel r, IdentityRole role)
+        {
+            r.RoleID = role.Id;   
+            r.Name = role.Name;
         }
 
-        [AuthActivity(AccessLevel = "ReadUserList")]
+        private static void populateIdentityRole(IdentityRole r, RoleViewModel role)
+        {            
+            r.Name = role.Name;
+        }
+        #endregion
+
+        public ManageController(ApplicationUserManager userManager, ApplicationRoleManager roleManager)
+        {
+            _userManager = userManager;
+            _roleManager = roleManager;
+        }
+        
+        
+        public ActionResult Index()
+        {
+            return View();
+        }
+        
         public ActionResult UserList()
         {
             var users = _userManager.Users;
             return View(users);
         }
+
 
         public ActionResult Create()
         {
@@ -115,6 +155,16 @@ namespace MyIdentity.Web.Controllers
 
             }
             return View(model);
+        }
+
+        public ActionResult UserDetails(string userID)
+        {
+            if (string.IsNullOrWhiteSpace(userID))
+            {
+                return HttpNotFound();
+            }
+            var user = _userManager.FindById(userID);
+            return View(getUser(user));
         }
 
         public ActionResult Edit(string id)
@@ -156,16 +206,50 @@ namespace MyIdentity.Web.Controllers
             return View(model);
         }
         
-        public ActionResult RoleList(string userID)
+        public ActionResult RoleList()
         {
-            if (string.IsNullOrEmpty(userID))
-            {
-                return HttpNotFound();
-            }
-            var userRoles = _userManager.GetRoles(userID);
+            var userRoles = _roleManager.Roles.ToList();
+            return View(userRoles);
+        }
+        
+        public ActionResult CreateRole()
+        {
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateRole(RoleViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _roleManager.CreateAsync(getIdentityRole(model));
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("RoleList");
+                }
+                AddErrors(result);
+            }
+            return View(model);
+        }
+
+        public ActionResult EditRole(string roleID)
+        {
+            if (!string.IsNullOrWhiteSpace(roleID))
+            {
+                return HttpNotFound();
+            }
+            var role = _roleManager.FindById(roleID);
+
+            return View(getRole(role));
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditRole(RoleViewModel model)
+        {
+            return View();
+        }
         public async Task<ActionResult> ClaimList(string userID)
         {            
             var claims = await _userManager.GetClaimsAsync(userID);
@@ -181,11 +265,6 @@ namespace MyIdentity.Web.Controllers
                 });
             }
             return View(userClaims);
-        }
-
-        public async Task<ActionResult> AddClaim()
-        {
-            return View();
-        }
+        }        
     }
 }

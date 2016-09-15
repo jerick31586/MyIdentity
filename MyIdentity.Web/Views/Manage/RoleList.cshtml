@@ -1,0 +1,30 @@
+﻿@model IEnumerable<MyIdentity.Web.Models.Identity.IdentityRole>
+
+@{
+    ViewBag.Title = "RoleList";
+}
+
+<h2>RoleList</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreateRole", null, new { @class = "btn btn-info btn-xs" }) |        
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink(item.Name,"AddUserToRole", new { roleID = item.Id } )            
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditRole", new { roleID=item.Id }) |            
+        </td>
+    </tr>
+}
+</table>

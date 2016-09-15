@@ -24,7 +24,7 @@ namespace MyIdentity.Web
 			container.RegisterType<IUserStore<IdentityUser, string>, UserStore>(new TransientLifetimeManager());
 			container.RegisterType<IRoleStore<IdentityRole, string>, RoleStore>(new TransientLifetimeManager());
 			container.RegisterType<ApplicationUserManager>();
-            container.RegisterType<ApplicationRoleManager>();
+			container.RegisterType<ApplicationRoleManager>();
 
 			DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 		}

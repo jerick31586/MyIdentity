@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNet.Identity;
+﻿        using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.DataProtection;
@@ -61,8 +61,8 @@ namespace MyIdentity.Web.Models.Identity
 
     public class AppPasswordValidator : PasswordValidator
     {
-
     }
+
     public class AppClaimsIdentityFactory : ClaimsIdentityFactory<IdentityUser>
     {
         public AppClaimsIdentityFactory()

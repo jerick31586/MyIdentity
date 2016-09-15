@@ -63,16 +63,7 @@ namespace MyIdentity.Web.Models
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? DateOfBirth { get; set; }   
-        
-        public static UserViewModel getUser(IdentityUser user)
-        {
-            if (user == null)
-                return null;
-
-            var u = new UserViewModel();
-            populateUser(u, user);
-            return u;
-        }
+                
         private static void populateUser(UserViewModel u, IdentityUser user)
         {
             u.Id = user.Id;
@@ -97,5 +88,14 @@ namespace MyIdentity.Web.Models
         [DataType(DataType.Password)]        
         [Display(Name = "New Password")]
         public string ConfirmPassword { get; set; }
+    }
+
+    public class RoleViewModel
+    {
+        [Key]
+        public string RoleID { get; set; }
+        [Required]
+        [Display(Name = "Role Name")]        
+        public string Name { get; set; }
     }
 }

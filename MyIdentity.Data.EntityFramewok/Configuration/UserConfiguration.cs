@@ -73,6 +73,14 @@ namespace MyIdentity.Data.EntityFramewok.Configuration
                 .HasColumnName("EmailConfimed");
             //.HasColumnType("bit");
 
+            Property(x => x.DepartmentID)
+                .HasColumnName("DepartmentID")
+                .IsOptional();
+
+            Property(x => x.JobTitle)
+                .HasColumnName("JobTitle")
+                .IsOptional()
+                .HasMaxLength(50);   
             //many to many relationship
             HasMany(x => x.Roles)
                 .WithMany(x => x.Users)
@@ -82,7 +90,7 @@ namespace MyIdentity.Data.EntityFramewok.Configuration
                     x.MapLeftKey("UserID");
                     x.MapRightKey("RoleID");
                 });
-
+            
             //one to many relationship
             HasMany(x => x.UserClaims)
                 .WithRequired(x => x.User)

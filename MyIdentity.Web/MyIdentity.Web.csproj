@@ -259,6 +259,11 @@
     <Content Include="Views\Test\Test.cshtml" />
     <Content Include="Views\Manage\ClaimList.cshtml" />
     <Content Include="Views\Shared\_UnAuthorized.cshtml" />
+    <Content Include="Views\Manage\RoleList.cshtml" />
+    <Content Include="Views\Manage\CreateRole.cshtml" />
+    <Content Include="Views\Manage\EditRole.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\UserDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

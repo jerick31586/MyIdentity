@@ -33,6 +33,7 @@ namespace MyIdentity.Web.Models.Identity
         }        
         private void populateRole(Role role, IdentityRole identityRole)
         {
+            role.RoleID = identityRole.Id;
             role.RoleName = identityRole.Name;
         }
 

@@ -34,8 +34,7 @@ namespace MyIdentity.Web.Models.CustomAttributes
                             new { controller = "Error", action = "UnAuthorized" }    
                         ));
                 }
-            }
-            
+            }            
         }
 
         public override void OnResultExecuting(ResultExecutingContext filterContext)

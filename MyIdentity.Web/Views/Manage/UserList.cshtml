@@ -7,40 +7,23 @@
 <h2>User List</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-default btn-sm" })
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-default btn-xs" })   
 </p>
 
 <table class="table table-responsive table-condensed">
-    <tr>
-        <th>Action</th>
-        <th>Username</th>
-        <th>Firstname</th>
-        <th>Lastname</th>
+    <tr>        
+        <th>Name</th>        
         <th>Email</th>                
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
+    <tr>        
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-success btn-xs" }) |
-            @Html.ActionLink("Roles", "RoleList", new { userID = item.Id }, new { @class = "btn btn-info btn-xs" }) |
-            @Html.ActionLink("Claims", "ClaimList", new { userID = item.Id }, new { @class = "btn btn-default btn-xs" }) |
-            @Html.ActionLink("Change Password", "ChangePassword", new { id = item.Id }, new { @class = "btn btn-warning btn-xs" }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-xs" })
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
+            @Html.ActionLink(item.FirstName + " " + item.LastName, "UserDetails", new { userID = item.Id })            
+        </td>       
         <td>
             @Html.DisplayFor(modelItem => item.Email)
-        </td>        
-        
+        </td>                
     </tr>
 }
 </table>

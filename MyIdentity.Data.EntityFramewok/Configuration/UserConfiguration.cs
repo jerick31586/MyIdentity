@@ -99,6 +99,7 @@ namespace MyIdentity.Data.EntityFramewok.Configuration
             HasMany(x => x.UserLogins)
                 .WithRequired(x => x.User)
                 .HasForeignKey(x => x.UserID);
+            
         }   
     }
 }

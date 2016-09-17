@@ -12,6 +12,7 @@ namespace MyIdentity.Data.EntityFramewok
             : base("name=MyIdentityContext")
         {
         }
+
         public ApplicationDbContext(string nameOrConnectionString)
             :base(nameOrConnectionString)
         {            
@@ -24,7 +25,8 @@ namespace MyIdentity.Data.EntityFramewok
         }
         public IDbSet<User> Users { get; set; }
         public IDbSet<Role> Roles { get; set; }
-        public IDbSet<UserLogin> UserLogins { get; set; }
+        public IDbSet<UserLogin> UserLogins { get; set; }       
+        public IDbSet<Department> Departments { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -32,6 +34,7 @@ namespace MyIdentity.Data.EntityFramewok
             modelBuilder.Configurations.Add(new RoleConfiguration());
             modelBuilder.Configurations.Add(new UserClaimConfiguration());
             modelBuilder.Configurations.Add(new UserLoginConfiguration());
+            modelBuilder.Configurations.Add(new DepartmentConfiguration());
             base.OnModelCreating(modelBuilder);
         }
         public void Seed(ApplicationDbContext context)

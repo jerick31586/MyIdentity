@@ -81,6 +81,7 @@ namespace MyIdentity.Data.EntityFramewok.Configuration
                 .HasColumnName("JobTitle")
                 .IsOptional()
                 .HasMaxLength(50);   
+
             //many to many relationship
             HasMany(x => x.Roles)
                 .WithMany(x => x.Users)
